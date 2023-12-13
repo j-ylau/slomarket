@@ -153,20 +153,22 @@ export default function CreateListing() {
     
     if (name === "price") {
       const priceValue = parseFloat(value);
-      if (priceValue === 0) {
-        setSnackbar({
-          open: true,
-          message: "The price will be registered as 'free'",
-        });
-      } else if (priceValue < 0) {
-        setSnackbar({ open: true, message: "Price cannot be negative." });
+      if (isNaN(priceValue) || priceValue < 0) {
+        setSnackbar({ open: true, message: "Price must be a positive number." });
         return;
+      }
+      if (!/^\d+(\.\d{0,2})?$/.test(value)) {
+        setSnackbar({ open: true, message: "Price must not exceed two decimal places." });
+        return;
+      }
+      if (priceValue === 0) {
+        setSnackbar({ open: true, message: "The price will be registered as 'free'." });
       }
       setListing({ ...listing, price: priceValue });
     } else {
       setListing({ ...listing, [name]: value });
     }
-  };
+};
 
   const handleSubmit = async () => {
     const validationError = validateForm();
@@ -228,12 +230,15 @@ export default function CreateListing() {
   const validateForm = () => {
     if (!listing.title.trim()) return "Title is required.";
     if (!listing.description.trim()) return "Description is required.";
-    if (!listing.price) return "Price is required.";
+    if (listing.price == null) return "Price is required."; // Check if price is null or undefined
+    if (listing.price < 0) return "Price cannot be negative.";
+    if (!/^\d+(\.\d{0,2})?$/.test(listing.price.toString())) {
+        return "Price must not exceed two decimal places.";
+    }
     if (!listing.location) return "Location is required.";
     if (listingImage.length === 0) return "At least one image is required.";
-    if (listing.price < 0) return "Price cannot be negative."; 
     return "";
-  };
+};
 
   const handleChangeListingImage = () => {
     setIsListingImageDialogOpen(true);
