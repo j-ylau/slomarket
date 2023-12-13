@@ -359,7 +359,7 @@ export default function Profile({ params }) {
       <Divider sx={{ my: 2, width: "100%" }} />
     {/* Tabs */}
     <Tabs value={currentTab} onChange={handleTabChange} centered>
-        <Tab label="My Listings" />
+        <Tab label="Listings" />
         {currentUserOwnsProfile && <Tab label="Settings" />}
         {currentUserOwnsProfile && <Tab label="Favorites" />}
         {/* {currentUserOwnsProfile && <Tab label="Purchase History" />} */}
