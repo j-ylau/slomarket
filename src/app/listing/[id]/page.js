@@ -326,13 +326,13 @@ const ListingPage = () => {
         )}
 
         <Box sx={{ display: "flex", justifyContent: "space-between", mt: 2 }}>
-          <Button
+          {/* <Button
             variant="contained"
             startIcon={<LocationOnIcon />}
             onClick={() => {}}
           >
             View on Map
-          </Button>
+          </Button> */}
 
           {!isFavorited && loggedIn && (
             <Button variant="contained" onClick={handleFavorite}>
@@ -346,13 +346,13 @@ const ListingPage = () => {
             </Button>
           )}
 
-          <Button
+          {/* <Button
             variant="outlined"
             startIcon={<ShareIcon />}
             onClick={() => {}}
           >
             Share
-          </Button>
+          </Button> */}
         </Box>
       </Paper>
       <Dialog
