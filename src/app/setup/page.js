@@ -174,10 +174,11 @@ export default function Profile() {
       }
     }
 
+    // Update the user with the new data
     await updateUser(userId, {
       name,
       phoneNumber,
-      location,
+      location: locationInput, // Use locationInput state here
       profileImage: profileImageURL,
       heroImage: heroImageURL,
     })
