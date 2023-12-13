@@ -20,7 +20,7 @@ Routing: Next.js’s built-in routing, with navigation handled by next/navigatio
 - User authentication and profiles.
 - Listing creation with image upload capabilities.
 - Real-time search and filter options.
-- Direct messaging between buyers and sellers.
+- Direct messaging between buyers and sellers (coming soon)
 - Responsive design for mobile and desktop use.
 
 ## Getting Started
@@ -78,7 +78,7 @@ If you want to perform server-side admin actions, please contact us for an admin
 
 ## Deploying 
 
-To deploy slomarket, please follow the steps: 
+To deploy SLOMarket, please follow the steps: 
 
 1. run: 
 ```bash
@@ -93,15 +93,6 @@ firebase deploy --only hosting
 ## Usage
 
 After logging in, users can create listings by providing details about the item they want to sell, including images, description, price, and location. Users can browse listings, filter by categories, and send messages to sellers to inquire more about items they are interested in.
-
-## Accounts
-
-For admin testing, use the following information
-
-Email: justinlau226@gmail.com
-PW: adminaccount
-
-Please be informed that you will not have a profile. This account was created on the admin console, and so it had skipped profile setup. 
 
 ## Contributing
 
@@ -127,7 +118,11 @@ If you encounter any issues, please open an issue in the repository, detailing t
 
 ## Authors and Acknowledgment
 
-- Justin Lau - Initial work - [j-ylau](https://github.com/j-ylau)
+- Justin Lau 
+- Ritvik Durgempudi
+- Wesley Tam 
+- Hayden Yakligian
+- Caden Tierney 
 
 Thanks to the contributors who have helped to make this project what it is!
 
@@ -137,6 +132,6 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE) f
 
 ## Project Status
 
-As of Deceember 2023, SloMarket is in beta. We are actively developing new features and addressing user feedback.
+As of Deceember 2023, SLOMarket is in beta. We are actively developing new features and addressing user feedback.
 
 
