@@ -10,7 +10,7 @@ export default function MyListings({ user }) {
   const [listings, setListings] = useState([]);
   const [page, setPage] = useState(1);
 
-  const itemsPerPage = 10;
+  const itemsPerPage = 5;
 
   // Pagination change handler
   const handleChangePage = (event, newPage) => {
