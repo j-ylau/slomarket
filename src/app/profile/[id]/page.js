@@ -363,7 +363,7 @@ export default function Profile({ params }) {
         {currentUserOwnsProfile && <Tab label="Settings" />}
         {currentUserOwnsProfile && <Tab label="Favorites" />}
         {/* {currentUserOwnsProfile && <Tab label="Purchase History" />} */}
-        {user.isAdmin && <Tab label="Admin Panel" />} {/* Conditional Admin Panel Tab */}
+        {currentUserOwnsProfile && user.isAdmin && <Tab label="Admin Panel" />} {/* Conditional Admin Panel Tab */}
       </Tabs>
 
       {/* Tab Content */}
