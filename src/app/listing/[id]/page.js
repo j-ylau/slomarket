@@ -31,7 +31,6 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "../../AuthProvider";
 import { getUser } from "@/lib/firebaseUtils";
 
-
 const VirtualizeSwipeableViews = virtualize(SwipeableViews);
 
 const ListingPage = () => {
@@ -45,27 +44,18 @@ const ListingPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isAdminStatus, setIsAdminStatus] = useState(false);
   const [isFavorited, setFavorited] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(false)
-
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [isDialogOpen, setDialogOpen] = useState(false);
+  const [selectedImageUrl, setSelectedImageUrl] = useState(null);
   const [user, setUser] = useState({ isAdmin: false, isStudent: false });
 
   const { getUser: getCurrentUser, isLoggedIn, isAdmin } = useAuth();
-  
+
   const [selectedImage, setSelectedImage] = useState(0);
 
-  
   const handleImageSelect = (index) => {
     setSelectedImage(index);
   };
-
-  
-  
-  
-  
-  
-  
-  
-  
 
   useEffect(() => {
     if (id) {
@@ -96,7 +86,7 @@ const ListingPage = () => {
     const fetchSellerInfo = async () => {
       if (listing && listing.sellerId) {
         try {
-          
+          // Correcting the path to match the Firestore structure
           const contactRef = doc(
             db,
             "users",
@@ -107,15 +97,20 @@ const ListingPage = () => {
           const contactSnap = await getDoc(contactRef);
 
           if (contactSnap.exists()) {
-            
             const sellerData = contactSnap.data();
-            const sellerWithId = { ...sellerData, id: contactSnap.id };
-            setSellerInfo(sellerWithId);
+            // Assuming that you want to display the contact information publicly
+            // so we're not checking contactInfoVisibility here
+            setSellerInfo({
+              email: sellerData.email,
+              phoneNumber: sellerData.phoneNumber,
+              location: sellerData.location,
+              // Add other fields that you might have in the contact document
+            });
           } else {
-            console.error("Seller contact not found");
+            console.error("Seller contact information not found");
           }
         } catch (error) {
-          console.error("Error fetching seller contact:", error);
+          console.error("Error fetching seller contact information:", error);
         }
       }
     };
@@ -125,96 +120,85 @@ const ListingPage = () => {
     }
   }, [listing]);
 
-
-
   useEffect(() => {
-    
-
-    if(isLoggedIn()){
-
-      
+    if (isLoggedIn()) {
     }
     const user = getCurrentUser();
-    console.log(user)
+    console.log(user);
 
-    if(user==null){
-      console.log("user not logged in")
+    if (user == null) {
+      console.log("user not logged in");
     } else {
-      setLoggedIn(true)
-    getUser(user.uid)
-      .then((userData) => {
-        if (!userData) {
-          setUser(userData);
-          setIsLoading(false);
-          return;
-        }
+      setLoggedIn(true);
+      getUser(user.uid)
+        .then((userData) => {
+          if (!userData) {
+            setUser(userData);
+            setIsLoading(false);
+            return;
+          }
 
-        if (userData.profileImage == "") {
-          userData.profileImage = null;
-        }
-        if (userData.heroImage == "") {
-          userData.heroImage = null;
-        }
-        userData["uid"] = user.uid;
+          if (userData.profileImage == "") {
+            userData.profileImage = null;
+          }
+          if (userData.heroImage == "") {
+            userData.heroImage = null;
+          }
+          userData["uid"] = user.uid;
 
-        if (isLoggedIn()) {
-          const currentUser = getCurrentUser();
-          if (currentUser.uid == user.uid) {
-            setCurrentUserOwnsProfile(true);
+          if (isLoggedIn()) {
+            const currentUser = getCurrentUser();
+            if (currentUser.uid == user.uid) {
+              setCurrentUserOwnsProfile(true);
 
-            if (
-              currentUser.emailVerified &&
-              currentUser.email.split("@").pop() == "calpoly.edu" &&
-              !userData.isStudent
-            ) {
-              
-              fetch(`/api/verify/${user.uid}`, { method: "put" }).catch(
-                (err) => {
+              if (
+                currentUser.emailVerified &&
+                currentUser.email.split("@").pop() == "calpoly.edu" &&
+                !userData.isStudent
+              ) {
+                fetch(`/api/verify/${user.uid}`, { method: "put" }).catch(
+                  (err) => {
+                    console.error(err);
+                    setErrorMessage(err.message);
+                  }
+                );
+              }
+            } else {
+              isAdmin()
+                .then((admin) => {
+                  if (admin) {
+                    setCurrentUserOwnsProfile(true);
+                  }
+                })
+                .catch((err) => {
                   console.error(err);
                   setErrorMessage(err.message);
-                }
-              );
+                });
             }
-          } else {
-            isAdmin()
-              .then((admin) => {
-                if (admin) {
-                  setCurrentUserOwnsProfile(true);
-                }
-              })
-              .catch((err) => {
-                console.error(err);
-                setErrorMessage(err.message);
-              });
           }
-        }
 
-        const checkAdminStatus = async () => {
-          const adminStatus = await isAdmin();
-          setIsAdminStatus(adminStatus);
-        };
+          const checkAdminStatus = async () => {
+            const adminStatus = await isAdmin();
+            setIsAdminStatus(adminStatus);
+          };
 
-        if (isLoggedIn()) {
-          checkAdminStatus();
-        }
+          if (isLoggedIn()) {
+            checkAdminStatus();
+          }
 
-        
-        
+          setUser(userData);
+          setIsLoading(false);
 
-        setUser(userData);
-        setIsLoading(false);
-
-        console.log(userData);
-        if (userData.favoriteListings.includes(id)) {
-          setFavorited(true);
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-        setErrorMessage(err.message);
-      });
+          console.log(userData);
+          if (userData.favoriteListings.includes(id)) {
+            setFavorited(true);
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+          setErrorMessage(err.message);
+        });
     }
- 
   }, [isLoggedIn, isAdmin]);
 
   const handleFavorite = async () => {
@@ -244,14 +228,24 @@ const ListingPage = () => {
     setFavorited(false);
   };
 
-  
   const renderSlide = ({ index, key }) => {
+    const imageUrl = listing.images[index];
     return (
       <img
         key={key}
-        src={listing.images[index]}
+        src={imageUrl}
         alt={`${listing.title} - image ${index + 1}`}
-        style={{ width: "100%", height: "auto" }}
+        style={{
+          maxWidth: "700px",
+          maxHeight: "700px",
+          width: "auto",
+          height: "auto",
+          cursor: "pointer",
+        }}
+        onClick={() => {
+          setSelectedImageUrl(imageUrl);
+          setDialogOpen(true);
+        }}
       />
     );
   };
@@ -291,12 +285,11 @@ const ListingPage = () => {
       </Breadcrumbs> */}
 
       <Paper elevation={3} sx={{ mt: 2, p: 2 }}>
-        <Typography variant="h2" gutterBottom>
+        <Typography variant="h4" gutterBottom>
           {listing.title}
         </Typography>
 
         {listing.images && listing.images.length > 0 && (
-          
           <VirtualizeSwipeableViews slideRenderer={renderSlide} />
         )}
 
@@ -317,7 +310,7 @@ const ListingPage = () => {
           >
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
-                {sellerInfo.name}
+                Contact Seller
               </Typography>
               <Typography variant="body2" color="text.secondary">
                 Email: {sellerInfo.email}
@@ -336,20 +329,18 @@ const ListingPage = () => {
           <Button
             variant="contained"
             startIcon={<LocationOnIcon />}
-            onClick={() => {
-             
-            }}
+            onClick={() => {}}
           >
             View on Map
           </Button>
 
-          {(!isFavorited && loggedIn) && (
+          {!isFavorited && loggedIn && (
             <Button variant="contained" onClick={handleFavorite}>
               Favorite
             </Button>
           )}
 
-          {(isFavorited && loggedIn) && (
+          {isFavorited && loggedIn && (
             <Button variant="contained" onClick={handleUnfavorite}>
               Unfavorite
             </Button>
@@ -358,14 +349,32 @@ const ListingPage = () => {
           <Button
             variant="outlined"
             startIcon={<ShareIcon />}
-            onClick={() => {
-             
-            }}
+            onClick={() => {}}
           >
             Share
           </Button>
         </Box>
       </Paper>
+      <Dialog
+        open={isDialogOpen}
+        onClose={() => setDialogOpen(false)}
+        aria-labelledby="image-dialog-title"
+        maxWidth="md" // Adjust size as needed
+      >
+        <DialogTitle id="image-dialog-title">Image View</DialogTitle>
+        <DialogContent>
+          <img
+            src={selectedImageUrl}
+            alt="Enlarged View"
+            style={{ width: "100%", height: "auto" }} // Adjust style as needed
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button variant="contained" onClick={() => setDialogOpen(false)}>
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 };
