@@ -31,7 +31,7 @@ import { auth } from "../../firebase/firebaseConfig";
 
 // Configure sans font
 const sans = localFont({
-  src: "../../public/fonts/PTSans-Regular.ttf", // Adjust the path to where you've stored your font files
+  src: "../../public/fonts/PTSans-Regular.ttf",
   weight: "400",
   style: "normal",
 });
@@ -81,7 +81,7 @@ export default function RootLayout({ children, title }) {
               handleMenuClose();
               signOut();
               router.push("/"); // Redirect to the home page after logout
-              setSnackbar({ open: true, message: "Successfully logged out" }); // Show Snackbar
+              setSnackbar({ open: true, message: "Successfully logged out" }); 
             }}
           >
             Log Out
@@ -163,7 +163,7 @@ export default function RootLayout({ children, title }) {
                           xs: "calc(100% - 120px)",
                           sm: "60%",
                           md: "40%",
-                        }, // Adjust the width calculation to prevent overlap
+                        }, 
                         // mx: { xs: 1, sm: 2 },
                       }}
                     />
@@ -174,7 +174,7 @@ export default function RootLayout({ children, title }) {
                       variant="contained"
                       color="secondary"
                       sx={{
-                        mx: 2, // Reduced margin
+                        mx: 2, 
                         display: { xs: "none", sm: "inline-flex" }, // Hide on xs, show on sm and above
                         maxWidth: { xs: "100px", sm: "none" },
                       }}
@@ -187,7 +187,7 @@ export default function RootLayout({ children, title }) {
                       color="inherit"
                       onClick={handleProfileMenuOpen}
                       sx={{
-                        p: { xs: 0, sm: 1 }, // Adjust padding
+                        p: { xs: 0, sm: 1 }, 
                       }}
                     >
                       <AccountCircleIcon

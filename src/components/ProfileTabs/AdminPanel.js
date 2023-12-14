@@ -40,16 +40,16 @@ const AdminPanel = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [userPage, setUserPage] = useState(1);
   const [listingPage, setListingPage] = useState(1);
-  const itemsPerPage = 5; // Set items per page for pagination
+  const itemsPerPage = 5; 
   const [openAlert, setOpenAlert] = useState(false);
-  const [alertType, setAlertType] = useState("success"); // New state for alert type
-  const [alertMessage, setAlertMessage] = useState(""); // New state for alert message
+  const [alertType, setAlertType] = useState("success"); 
+  const [alertMessage, setAlertMessage] = useState(""); 
 
   useEffect(() => {
     const fetchUsersAndListings = async () => {
       setIsLoading(true);
       try {
-        // Fetch users
+        
         const usersCollectionRef = collection(db, "users");
         const usersSnapshot = await getDocs(usersCollectionRef);
         const usersData = usersSnapshot.docs.map((doc) => ({
@@ -58,7 +58,7 @@ const AdminPanel = () => {
         }));
         setUsers(usersData);
 
-        // Fetch listings
+        
         const listingsCollectionRef = collection(db, "listings");
         const listingsSnapshot = await getDocs(listingsCollectionRef);
         const listingsData = listingsSnapshot.docs.map((doc) => ({
@@ -105,9 +105,9 @@ const AdminPanel = () => {
 
   const handleRestrictUser = async (userId) => {
     try {
-      // Logic to restrict the user
+      
       console.log(`Restricting user with ID: ${userId}`);
-      // Update the user's status in the database
+      
     } catch (error) {
       console.error("Error restricting user: ", error);
     }
@@ -181,8 +181,8 @@ const AdminPanel = () => {
       <Grid container spacing={2}>
         <Grid item xs={12} md={6}>
           <Autocomplete
-            options={users.map((user) => user.name)} // Make sure users is an array
-            getOptionLabel={(option) => option} // Defines how to get the option label from the option
+            options={users.map((user) => user.name)} 
+            getOptionLabel={(option) => option} 
             value={searchUser}
             onChange={(event, newValue) => {
               setSearchUser(newValue);
@@ -230,8 +230,8 @@ const AdminPanel = () => {
         </Grid>
         <Grid item xs={12} md={6}>
           <Autocomplete
-            options={listings.map((listing) => listing.title)} // Make sure listings is an array
-            getOptionLabel={(option) => option} // Defines how to get the option label from the option
+            options={listings.map((listing) => listing.title)} 
+            getOptionLabel={(option) => option} 
             value={searchTitle}
             onChange={(event, newValue) => {
               setSearchTitle(newValue);

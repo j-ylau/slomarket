@@ -34,9 +34,9 @@ Before you begin, ensure you have met the following requirements:
 - You have installed the latest version of [Node.js and npm](https://nodejs.org/en/).
 - You have a Firebase account and have created a project to obtain your Firebase config keys.
 
-### Installing SloMarket
+### Installing SLOMarket
 
-To install SloMarket, follow these steps:
+To install SLOMarket, follow these steps:
 
 1. Clone the repository:
 ```bash
@@ -96,7 +96,7 @@ After logging in, users can create listings by providing details about the item 
 
 ## Contributing
 
-We welcome contributions. To contribute to SloMarket, follow these steps:
+We welcome contributions. To contribute to SLOMarket, follow these steps:
 
 1. Fork this repository.
 2. Create a branch: `git checkout -b <branch_name>`.
@@ -123,6 +123,8 @@ If you encounter any issues, please open an issue in the repository, detailing t
 - Wesley Tam 
 - Hayden Yakligian
 - Caden Tierney 
+
+For CSC307 Fall 2023 @ Cal Poly SLO. 
 
 Thanks to the contributors who have helped to make this project what it is!
 

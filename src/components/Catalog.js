@@ -1,17 +1,17 @@
-// Catalog.js
+
 import React, { useState } from "react";
 import { Box, Typography, Link, IconButton, Grid } from "@mui/material";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import HomeCard from "./HomeCardDemo";
-import Categories from "./Categories"; // Import the Categories compone
-import NewItems from "./NewItems"; // Import the Categories compone
+import Categories from "./Categories"; 
+import NewItems from "./NewItems"; 
 
 function Catalog() {
   const [startIdx, setStartIdx] = useState(0);
-  const [endIdx, setEndIdx] = useState(3); // New state for end index
+  const [endIdx, setEndIdx] = useState(3); 
 
   const handleNextClick = () => {
-    // Update the starting and ending indices to show the next set of cards
+    
     const newStartIdx = startIdx + 1;
     const newEndIdx = endIdx + 1;
 

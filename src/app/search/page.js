@@ -137,7 +137,7 @@ const SearchPage = () => {
         const distance = getDistanceFromLatLonInMiles(
           filters.userLocation.latitude,
           filters.userLocation.longitude,
-          item.location.latitude, // Assuming item has a location object with latitude and longitude
+          item.location.latitude, 
           item.location.longitude
         );
         return distance <= parseFloat(filters.radius);

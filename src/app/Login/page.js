@@ -50,7 +50,6 @@ export default function Signin() {
   return (
     <>
       <Grid container component="main" sx={{ height: "100vh" }}>
-        {/* You can keep the background image or remove it */}
         <Grid
           item
           xs={false}
@@ -80,7 +79,7 @@ export default function Signin() {
             <img
               src={logo}
               alt="Logo"
-              style={{ width: "300px" }} // Adjust the height as needed
+              style={{ width: "300px" }} 
             />
             <Typography variant="h5" pb={6}>
               <strong>Log into your account.</strong>

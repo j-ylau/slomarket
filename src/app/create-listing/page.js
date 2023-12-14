@@ -230,7 +230,7 @@ export default function CreateListing() {
   const validateForm = () => {
     if (!listing.title.trim()) return "Title is required.";
     if (!listing.description.trim()) return "Description is required.";
-    if (listing.price == null) return "Price is required."; // Check if price is null or undefined
+    if (listing.price == null) return "Price is required."; 
     if (listing.price < 0) return "Price cannot be negative.";
     if (!/^\d+(\.\d{0,2})?$/.test(listing.price.toString())) {
         return "Price must not exceed two decimal places.";

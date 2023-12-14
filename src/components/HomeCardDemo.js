@@ -26,7 +26,7 @@ function HomeCardDemo() {
             left: 0,
             width: '100%', 
             height: '100%', 
-            objectFit: 'cover', // This ensures the image covers the area without stretching
+            objectFit: 'cover', 
             borderRadius: '8px', // Rounded corners only at the top
             boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)'
           }}

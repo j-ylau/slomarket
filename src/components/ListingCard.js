@@ -20,7 +20,7 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import SchoolIcon from "@mui/icons-material/School";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import copy from "copy-to-clipboard";
-import moment from "moment"; // Import moment library
+import moment from "moment"; 
 import { doc, deleteDoc } from "firebase/firestore";
 import IconButton from "@mui/material/IconButton";
 import { db } from "../../firebase/firebaseConfig";
@@ -30,11 +30,11 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ShareIcon from "@mui/icons-material/Share";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { red } from "@mui/material/colors";
-import FlagIcon from "@mui/icons-material/Flag"; // For reporting
+import FlagIcon from "@mui/icons-material/Flag"; 
 import FileCopyIcon from "@mui/icons-material/FileCopy";
 import { useAuth } from "../app/AuthProvider";
 
-import VisibilityIcon from "@mui/icons-material/Visibility"; // For tracking
+import VisibilityIcon from "@mui/icons-material/Visibility";
 
 function ListingCard({
   loading,
@@ -95,7 +95,7 @@ function ListingCard({
   const handleDeleteListing = async (listingId) => {
     if (!isAdmin) {
       // User is not an admin, show an error message
-      setSnackbarMessage("You do not have permission to delete listings. Contact support if you think this is an issue.");
+      setSnackbarMessage("You do not have permission to delete this listing. Contact support if you think this is an issue.");
       setSnackbarOpen(true);
       return;
     }
@@ -109,7 +109,7 @@ function ListingCard({
     } catch (error) {
       console.error("Error deleting listing: ", error);
       // Show error alert
-      setSnackbarMessage("You do not have permission to delete listings. Contact support if you think this is an issue.");
+      setSnackbarMessage("You do not have permission to delete listings. Contact support@slomarket.com if you think this is an issue.");
       setSnackbarOpen(true);
     }
   };
@@ -144,13 +144,11 @@ function ListingCard({
       ? images[0]
       : "default-image-url";
 
-  // Modify the formatDate function to accept a timestamp object with seconds and nanoseconds
   const formatDate = (timestamp) => {
-    if (!timestamp || !timestamp.seconds) return "Unknown"; // Check for null, undefined, or incomplete timestamp
-    // Convert seconds to milliseconds for moment (moment uses milliseconds)
+    if (!timestamp || !timestamp.seconds) return "Unknown"; 
     const date = new Date(timestamp.seconds * 1000);
-    const formattedDate = moment(date).format("MM/DD/YYYY"); // Use moment to format the date
-    return formattedDate !== "Invalid date" ? formattedDate : "Unknown"; // Check if the date is valid
+    const formattedDate = moment(date).format("MM/DD/YYYY"); 
+    return formattedDate !== "Invalid date" ? formattedDate : "Unknown"; 
   };
 
   const formatPriceHistory = (history) => {
@@ -211,7 +209,7 @@ function ListingCard({
     <Box
       sx={{
         width: isMobile ? "100%" : 300,
-        height: "460px", // This sets a constant height for the card
+        height: "460px", 
         borderRadius: "8px",
         overflow: "hidden",
         boxShadow: "0px 0px 4px rgba(0, 0, 0, 0.25)",
@@ -229,7 +227,7 @@ function ListingCard({
           justifyContent: "flex-end",
           // p: 1,
           // boxShadow: "0px 0px 4px rgba(0, 0, 0, 0.25)",
-          backgroundColor: "white", // Add background color if needed
+          backgroundColor: "white",
         }}
       >
         <IconButton
@@ -237,7 +235,7 @@ function ListingCard({
           aria-controls="long-menu"
           aria-haspopup="true"
           onClick={handleClickMenu}
-          sx={{ margin: "0 8px" }} // Add some margin if needed
+          sx={{ margin: "0 8px" }} 
         >
           <MoreVertIcon />
         </IconButton>
@@ -311,7 +309,7 @@ function ListingCard({
         <Box
           sx={{ p: 2, flexGrow: 1 }}
           style={{
-            backgroundColor: "white", // Add background color if needed
+            backgroundColor: "white", 
           }}
         >
           <Typography
@@ -349,7 +347,7 @@ function ListingCard({
           alignItems="center"
           sx={{
             p: 2,
-            backgroundColor: "white", // Add background color if needed
+            backgroundColor: "white", 
           }}
         >
           <Typography
@@ -381,7 +379,7 @@ function ListingCard({
             p: 2,
             display: "flex",
             alignItems: "center",
-            backgroundColor: "white", // Add background color if needed
+            backgroundColor: "white", 
           }}
         >
           <LocationOnIcon fontSize="small" color="primary" />

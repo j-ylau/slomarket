@@ -1,4 +1,4 @@
-// components/FilterComponent.js
+
 
 import React, { useState, useEffect } from "react";
 import { Stack, Button, Snackbar, Alert, TextField } from "@mui/material";
@@ -26,7 +26,7 @@ const FilterComponent = ({ onFilterChange }) => {
         }
       );
     }
-  }, [radius]); // Fetch location when radius is interacted with
+  }, [radius]); 
 
   const applyFilters = () => {
     if (radius !== "" && !userLocation) {
@@ -105,6 +105,6 @@ const FilterComponent = ({ onFilterChange }) => {
 
 export default FilterComponent;
 
-// components/SortFilter.js
-// components/RadiusFilter.js
-// components/VerifiedFilter.js
+
+
+

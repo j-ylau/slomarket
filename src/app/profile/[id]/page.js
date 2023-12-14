@@ -14,7 +14,7 @@ import {
   Tab,
   Paper,
   CircularProgress,
-  IconButton, // Import IconButton
+  IconButton, 
   Menu,
   MenuItem,
 } from "@mui/material";
@@ -24,17 +24,16 @@ import { sendEmailVerification } from "firebase/auth";
 import { getUser } from "@/lib/firebaseUtils";
 import PersonIcon from "@mui/icons-material/Person";
 import SchoolIcon from "@mui/icons-material/School";
-import BanIcon from "@mui/icons-material/Block"; // Import the Ban icon
-import DeleteIcon from "@mui/icons-material/Delete"; // Import the Delete icon
-import ReportIcon from "@mui/icons-material/Report"; // Import the Report icon
-import ShareIcon from "@mui/icons-material/Share"; // Import the Share icon
+import BanIcon from "@mui/icons-material/Block"; 
+import DeleteIcon from "@mui/icons-material/Delete";
+import ReportIcon from "@mui/icons-material/Report";
+import ShareIcon from "@mui/icons-material/Share";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import VerifiedIcon from "@mui/icons-material/CheckCircle"; // Make sure you have this imported if you're using a verified badge
+import VerifiedIcon from "@mui/icons-material/CheckCircle"; 
 import MyListings from "../../../components/ProfileTabs/MyListings";
 import Settings from "../../../components/ProfileTabs/Settings";
 import FavoriteListings from "../../../components/ProfileTabs/FavoriteListings";
-import AdminPanel from "../../../components/ProfileTabs/AdminPanel"; // Assume you have a separate component for Admin functionalities
-
+import AdminPanel from "../../../components/ProfileTabs/AdminPanel"; 
 // AdminBadge component
 const AdminBadge = () => (
   <Typography color="error" component="span">
@@ -54,13 +53,12 @@ export default function Profile({ params }) {
   const [heroImage, setHeroImage] = useState(
     "https://www.calpoly.edu/sites/calpoly.edu/files/inline-images/20210403-SpringScenics-JoeJ0020.jpg"
   );
-  const [isDialogOpen, setIsDialogOpen] = useState(false); // State to control the dialog's visibility
-  // State variable to track successful login
+  const [isDialogOpen, setIsDialogOpen] = useState(false); 
   const [isLoginSuccess, setIsLoginSuccess] = useState(false);
 
   // Handlers for menu
   const handleClickMenu = (event) => {
-    // console.log(event.currentTarget); // This will log the element that was clicked
+    // console.log(event.currentTarget); 
     setAnchorEl(event.currentTarget);
   };
 
@@ -78,7 +76,7 @@ export default function Profile({ params }) {
   useEffect(() => {
     if (isLoginSuccess) {
       const redirectTimer = setTimeout(() => {
-        router.push(`/home`); // Replace with your home screen URL
+        router.push(`/home`); 
       }, 5000); // 5 seconds
 
       // Cleanup the timer to avoid memory leaks
@@ -178,10 +176,10 @@ export default function Profile({ params }) {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            padding: "20px", // Add padding to make it more apparent
-            border: "2px solid #ff0000", // Add a red border to highlight it
-            borderRadius: "8px", // Add rounded corners
-            backgroundColor: "#ffeeee", // Add a light background color
+            padding: "20px", 
+            border: "2px solid #ff0000", 
+            borderRadius: "8px",
+            backgroundColor: "#ffeeee", 
           }}
         >
           <Typography variant="h6" color="error" margin={30}>
@@ -203,10 +201,10 @@ export default function Profile({ params }) {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            padding: "20px", // Add padding to make it more apparent
-            border: "2px solid #ff0000", // Add a red border to highlight it
-            borderRadius: "8px", // Add rounded corners
-            backgroundColor: "#ffeeee", // Add a light background color
+            padding: "20px", 
+            border: "2px solid #ff0000", 
+            borderRadius: "8px", 
+            backgroundColor: "#ffeeee",
           }}
         >
           <Typography variant="h6" color="error" margin={30}>

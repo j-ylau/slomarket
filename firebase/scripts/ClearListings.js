@@ -1,4 +1,4 @@
-const { db } = require('../firebaseAdminConfig'); // ensure this path is correct for your project structure
+const { db } = require('../firebaseAdminConfig'); 
 
 const deleteAllListings = async () => {
   const listingsCollection = db.collection('listings');

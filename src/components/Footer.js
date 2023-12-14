@@ -28,7 +28,7 @@ export default function Footer() {
         py: 3,
         px: 2,
         mt: "auto",
-        backgroundImage: "url(/assets/footer.png)", // Adjusted path
+        backgroundImage: "url(/assets/footer.png)", 
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
         height: "100%",

@@ -98,13 +98,11 @@ const ListingPage = () => {
 
           if (contactSnap.exists()) {
             const sellerData = contactSnap.data();
-            // Assuming that you want to display the contact information publicly
             // so we're not checking contactInfoVisibility here
             setSellerInfo({
               email: sellerData.email,
               phoneNumber: sellerData.phoneNumber,
               location: sellerData.location,
-              // Add other fields that you might have in the contact document
             });
           } else {
             console.error("Seller contact information not found");
@@ -366,7 +364,7 @@ const ListingPage = () => {
           <img
             src={selectedImageUrl}
             alt="Enlarged View"
-            style={{ width: "100%", height: "auto" }} // Adjust style as needed
+            style={{ width: "100%", height: "auto" }} 
           />
         </DialogContent>
         <DialogActions>

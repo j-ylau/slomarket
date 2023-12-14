@@ -10,7 +10,7 @@ export default function FavoriteListings( {user} ) {
 
   const itemsPerPage = 10;
 
-  // Pagination change handler
+  
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -33,7 +33,7 @@ export default function FavoriteListings( {user} ) {
     const fetchListings = async () => {
       const ids = user.favoriteListings;
 
-      // Split favorite listings into groups of 10, the limit firebase allows for withIn
+      
       let idGroups = [];
       for (let i = 0; i < ids.length; i += 10) {
         idGroups.push(ids.slice(i, Math.min(i + 10, ids.length)));
@@ -50,7 +50,7 @@ export default function FavoriteListings( {user} ) {
 
       let allListings = listingGroups.flat();
 
-      // Sort listings by creation time, since orderBy is not allowed
+      
       allListings.sort((a, b) => {
         return (b.createdAt.seconds - a.createdAt.seconds);
       });

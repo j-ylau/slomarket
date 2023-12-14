@@ -4,7 +4,7 @@ import ListingCard from "../ListingCard";
 import { collection, query, orderBy, getDocs, where } from "firebase/firestore";
 import { db } from "../../../firebase/firebaseConfig";
 
-import NoListingsImage from "/public/illustrations/standing-19.svg"; // Update the path if necessary
+import NoListingsImage from "/public/illustrations/standing-19.svg"; 
 
 export default function MyListings({ user }) {
   const [listings, setListings] = useState([]);
@@ -12,7 +12,7 @@ export default function MyListings({ user }) {
 
   const itemsPerPage = 5;
 
-  // Pagination change handler
+  
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -38,7 +38,7 @@ export default function MyListings({ user }) {
   return (
     <Box px={3} py={2}>
       {listings.length === 0 ? (
-        // Display illustration and message when no listings are found
+        
         <Box
           display="flex"
           flexDirection="column"

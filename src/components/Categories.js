@@ -1,7 +1,7 @@
-// components/Categories.js
+
 import React from 'react';
 import { Paper, Chip, Stack } from '@mui/material';
-import { useRouter } from 'next/navigation'; // Note: Update this import to match your routing library if needed.
+import { useRouter } from 'next/navigation'; 
 
 const Categories = () => {
   const categories = [

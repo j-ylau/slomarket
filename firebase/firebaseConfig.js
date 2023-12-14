@@ -14,18 +14,10 @@ const firebaseConfig = {
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-// const analytics = app.name && typeof window !== 'undefined' ? getAnalytics(app) : null;
-
-// Initialize Auth
 const auth = getAuth(app);
-
-// Initialize Firestore
 const db = getFirestore(app);
-
-// Initialize Storage
 const storage = getStorage(app);
 
-// Export the Firebase app and Firestore instance
+
 export { app, auth, db, storage };

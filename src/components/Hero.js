@@ -31,7 +31,6 @@ function Hero() {
         </Typography>
       );
     } else {
-      // Render content for the 'Sell' tab. You can customize this content.
       return (
         <Typography variant="subtitle1" sx={{ mt: 2, mb: 2 }}>
           Sell your unwanted items and make some extra cash! List your products
@@ -106,7 +105,7 @@ function Hero() {
             <CardContent>
               <Typography
                 variant={isMobile ? "h6" : "h4"}
-                sx={{ fontWeight: 600, mt: 2 }} // Added margin-top for better spacing
+                sx={{ fontWeight: 600, mt: 2 }} 
               >
                 The <span style={{ color: "#4FB18C" }}>easiest</span> way to buy
                 and sell undesired items and products
@@ -115,10 +114,10 @@ function Hero() {
               <Box
                 sx={{
                   display: "flex",
-                  flexDirection: isMobile ? "column" : "row", // Stack buttons vertically on mobile
+                  flexDirection: isMobile ? "column" : "row",
                   justifyContent: "space-between",
                   "& > Button": {
-                    mt: isMobile ? 2 : 0, // Add top margin to buttons on mobile
+                    mt: isMobile ? 2 : 0, 
                   },
                 }}
               >

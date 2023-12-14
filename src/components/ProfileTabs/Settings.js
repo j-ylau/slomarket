@@ -13,14 +13,14 @@ export default function Settings( {user, setUser, setCurrentTab} ) {
 
     const [formState, setFormState] = useState({});
     const [errorMessage, setErrorMessage] = useState();
-    const [profileImage, setProfileImage] = useState([]); // Stored as [file, objectUrl]
-    const [heroImage, setHeroImage] = useState([]); // Stored as [file, objectUrl]
+    const [profileImage, setProfileImage] = useState([]); 
+    const [heroImage, setHeroImage] = useState([]); 
     const [isProfileImageDialogOpen, setIsProfileImageDialogOpen] = useState(false);
     const [isHeroDialogOpen, setIsHeroDialogOpen] = useState(false);
     
     const router = useRouter();
 
-    // RADIO HANDLERS
+    
     const [selectedOption1, setSelectedOption1] = useState(null);
     const handleChange1 = (event) => {
         setSelectedOption1(event.target.value);
@@ -37,15 +37,15 @@ export default function Settings( {user, setUser, setCurrentTab} ) {
     const onProfileImageDrop = useCallback(acceptedFiles => {
         const file = acceptedFiles[0];
         const objectUrl = URL.createObjectURL(file);
-        setProfileImage([file, objectUrl]); // Set the uploaded image as the hero image
-        setIsProfileImageDialogOpen(false); // Close the dialog
+        setProfileImage([file, objectUrl]); 
+        setIsProfileImageDialogOpen(false); 
     }, []);
     
     const onHeroDrop = useCallback(acceptedFiles => {
         const file = acceptedFiles[0];
         const objectUrl = URL.createObjectURL(file);
-        setHeroImage([file, objectUrl]); // Set the uploaded image as the hero image
-        setIsHeroDialogOpen(false); // Close the dialog
+        setHeroImage([file, objectUrl]); 
+        setIsHeroDialogOpen(false); 
     }, []);
 
     const { getRootProps:getProfileImageRootProps, getInputProps:getProfileImageInputProps } = useDropzone({
@@ -83,11 +83,7 @@ export default function Settings( {user, setUser, setCurrentTab} ) {
     function handleSetupSubmit(event) {
       if (event.nativeEvent.submitter.name == "saveSettings") {
         handleSaveSettings(event);
-    } /*else if (event.nativeEvent.submitter.name == "resetPassword") {
-        handleResetPassword(event);
-    } else if (event.nativeEvent.submitter.name == "deleteAccount") {
-        handleDeleteAccount(event);
-    }*/
+    }
   }
 
 
@@ -99,7 +95,7 @@ export default function Settings( {user, setUser, setCurrentTab} ) {
         const location = data.get('location');
         const phoneNumber = data.get('phoneNumber');
 
-        // Validate phone number with regex
+        
         if (phoneNumber &&
             (!event.currentTarget.reportValidity() ||
             !phoneNumber.match(/^(\+\d{1,2}\s?)?1?\-?\.?\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/))) {
@@ -113,7 +109,7 @@ export default function Settings( {user, setUser, setCurrentTab} ) {
             phoneNumber
         }
         
-        // Upload images
+        
         if (profileImage.length != 0) {
             try {
                 const profileImageURL = await uploadImage(userId, profileImage[0]);
@@ -137,18 +133,18 @@ export default function Settings( {user, setUser, setCurrentTab} ) {
         }
       
         await updateUser(userId, userData).then(() => {
-            // Send to profile page
+            
             router.push(`/profile/${userId}`);
         }).catch(err => {
             console.error(err);
             setErrorMessage(err.message);
         });
 
-        // Update local user
+        
         const newUser = {...user, ...userData};
         setUser(newUser);
 
-        // Send to default tab
+        
         setCurrentTab(0);
 
         return false;
@@ -158,12 +154,12 @@ export default function Settings( {user, setUser, setCurrentTab} ) {
         event.preventDefault();
         const userId = user.uid;
     
-        // Submit form
+        
         fetch(`/api/users/${userId}/resetPassword`, {
             method: 'put',
         }).then((res) => {
             if (res.ok) {
-            // Send to profile page
+            
             router.push(`/profile/${userId}`);
             } else {
             setError(true);
@@ -178,12 +174,12 @@ export default function Settings( {user, setUser, setCurrentTab} ) {
         event.preventDefault();
         const userId = user.uid;
     
-        // Submit form
+        
         fetch(`/api/users/${userId}`, {
             method: 'delete',
         }).then((res) => {
             if (res.ok) {
-            // Send to profile page
+            
             router.push(`/profile/${userId}`);
             } else {
             setError(true);
