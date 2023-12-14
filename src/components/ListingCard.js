@@ -22,12 +22,14 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import copy from "copy-to-clipboard";
 import moment from "moment"; 
 import { doc, deleteDoc } from "firebase/firestore";
+import { getDoc, addDoc, collection, Timestamp } from "firebase/firestore";
 import IconButton from "@mui/material/IconButton";
 import { db } from "../../firebase/firebaseConfig";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ShareIcon from "@mui/icons-material/Share";
+import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { red } from "@mui/material/colors";
 import FlagIcon from "@mui/icons-material/Flag"; 
@@ -59,6 +61,9 @@ function ListingCard({
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const router = useRouter();
   const { isLoggedIn, isAdmin } = useAuth();
+  const user  = useAuth();
+
+  console.log(user.currentUser)
 
   const handleBoxClick = () => {
     router.push(`/listing/${listingId}`);
@@ -138,6 +143,41 @@ function ListingCard({
     setSnackbarOpen(true);
     handleCloseMenu();
   };
+
+  const handleEditListing = async (listingId) => {
+    // Check if the user is logged in
+    if (!user || !user.currentUser) {
+      setSnackbarMessage("You must be logged in to edit a listing.");
+      setSnackbarOpen(true);
+      return;
+    }
+  
+    // Get the admin status, which might be inside a 'claims' object or directly on the user object
+    // This will depend on how you're setting up admin roles on your authentication backend
+    const isAdmin = user.currentUser.admin || user.currentUser.claims?.admin;
+  
+    // Fetch the listing to check if the current user is the owner
+    const listingRef = doc(db, "listings", listingId);
+    const listingSnap = await getDoc(listingRef);
+    if (!listingSnap.exists()) {
+      setSnackbarMessage("Listing does not exist.");
+      setSnackbarOpen(true);
+      return;
+    }
+    const listingData = listingSnap.data();
+  
+    // Verify if the user is the owner of the listing or an admin
+    const isOwner = user.currentUser.uid === listingData.sellerId;
+    
+    if (isOwner || isAdmin) {
+      router.push(`/edit-listing/${listingId}`);
+    } else {
+      setSnackbarMessage("You do not have permission to edit this listing.");
+      setSnackbarOpen(true);
+    }
+  };
+  
+  
 
   const firstImage =
     Array.isArray(images) && images.length > 0
@@ -263,6 +303,10 @@ function ListingCard({
               Listing
             </MenuItem>
           )}
+          <MenuItem onClick={() => handleEditListing(listingId)}>
+  <EditIcon fontSize="small" sx={{ marginRight: 1 }} /> Edit Listing
+</MenuItem>
+
           {/* Add the Report Listing menu item */}
           {/* <MenuItem onClick={handleReportListing}>
             <FlagIcon fontSize="small" sx={{ marginRight: 1 }} /> Report Listing
