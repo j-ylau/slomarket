@@ -36,7 +36,7 @@ Before you begin, ensure you have met the following requirements:
 
 ### Installing SLOMarket
 
-To install SLOMarket and run it using our Firebase instance, follow these steps:
+To install SLOMarket and run it using our Firebase instance (highly recommended), follow these steps:
 
 1. Clone the repository:
 ```bash
