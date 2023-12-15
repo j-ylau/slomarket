@@ -32,11 +32,11 @@ These instructions will get you a copy of the project up and running on your loc
 Before you begin, ensure you have met the following requirements:
 
 - You have installed the latest version of [Node.js and npm](https://nodejs.org/en/).
-- You have a Firebase account and have created a project to obtain your Firebase config keys.
+- If you are hosting your own Firebase instance, you must have a Firebase account and create a project to obtain your Firebase config keys.
 
 ### Installing SLOMarket
 
-To install SLOMarket, follow these steps:
+To install SLOMarket and run it using our Firebase instance (highly recommended), follow these steps:
 
 1. Clone the repository:
 ```bash
@@ -63,9 +63,11 @@ NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_messaging_sender_id
 NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
 ```
 
-Please contact us for the key information. 
+5. Ensure you have a Firebase admin key file named `slomarket_admin_key.json` in the base path.
 
-5. Start the development server:
+If you were not provided the API keys or the admin key file, please contact us for this information. 
+
+6. Start the development server:
 ```bash
 npm run dev
 ```
@@ -74,11 +76,11 @@ The application should now be running on [http://localhost:3000](http://localhos
 
 ## Admin Actions
 
-If you want to perform server-side admin actions, please contact us for an admin key. 
+If you want to perform server-side admin actions, please contact us for an admin key.
 
 ## Deploying 
 
-To deploy SLOMarket, please follow the steps: 
+To deploy SLOMarket on your own Firebase instance, please follow the steps: 
 
 1. run: 
 ```bash
@@ -89,6 +91,8 @@ npm run build
 ```bash
 firebase deploy --only hosting
 ```
+
+3. Find your API keys from the Firebase console in Project Settings > General. Then go to Project Settings > Service accounts and generate an admin key file. Then follow steps 4 and 5 from the previous section to install these keys.
 
 ## Usage
 

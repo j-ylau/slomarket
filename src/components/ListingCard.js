@@ -303,9 +303,9 @@ function ListingCard({
               Listing
             </MenuItem>
           )}
-          <MenuItem onClick={() => handleEditListing(listingId)}>
+          {/* <MenuItem onClick={() => handleEditListing(listingId)}>
   <EditIcon fontSize="small" sx={{ marginRight: 1 }} /> Edit Listing
-</MenuItem>
+</MenuItem> */}
 
           {/* Add the Report Listing menu item */}
           {/* <MenuItem onClick={handleReportListing}>
