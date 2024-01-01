@@ -20,8 +20,8 @@ import {
   CardContent,
   IconButton,
 } from "@mui/material";
-import SwipeableViews from "react-swipeable-views";
-import { virtualize } from "react-swipeable-views-utils";
+// import SwipeableViews from "react-swipeable-views";
+// import { virtualize } from "react-swipeable-views-utils";
 import ShareIcon from "@mui/icons-material/Share";
 import { db } from "../../../../firebase/firebaseConfig";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
@@ -31,7 +31,7 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "../../AuthProvider";
 import { getUser } from "@/lib/firebaseUtils";
 
-const VirtualizeSwipeableViews = virtualize(SwipeableViews);
+// const VirtualizeSwipeableViews = virtualize(SwipeableViews);
 
 const ListingPage = () => {
   const router = useRouter();
@@ -287,9 +287,9 @@ const ListingPage = () => {
           {listing.title}
         </Typography>
 
-        {listing.images && listing.images.length > 0 && (
+        {/* {listing.images && listing.images.length > 0 && (
           <VirtualizeSwipeableViews slideRenderer={renderSlide} />
-        )}
+        )} */}
 
         <Typography variant="body1" gutterBottom>
           {listing.description}
