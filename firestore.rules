@@ -1,0 +1,61 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Match all documents in the 'listings' collection
+    match /listings/{listing} {
+      // Anyone can read listings
+      allow read: if true;
+      // Allow users to create listings if they are authenticated
+      allow create: if request.auth != null;
+      // Admin users can delete
+      allow delete: if get(/databases/$(database)/documents/users/$(request.auth.uid)).data.isAdmin;
+      // Only the seller or an admin can write
+      allow write: if request.auth.uid == resource.data.sellerId 
+                    || get(/databases/$(database)/documents/users/$(request.auth.uid)).data.isAdmin;
+    }
+    
+    match /users/{userId} {
+      allow read: if true;
+      allow create: if request.auth != null && request.auth.uid == userId;
+      allow write: if request.auth.uid == userId
+                    // Users can change their own documents except for isAdmin, isVerified, isStudent fields
+                    && (!("isAdmin" in request.resource.data) || resource.data.isAdmin == request.resource.data.isAdmin)
+                    && (!("isVerified" in request.resource.data) || resource.data.isVerified == request.resource.data.isVerified)
+                    && (!("isStudent" in request.resource.data) || resource.data.isStudent == request.resource.data.isStudent);
+      // Admin can write to any user document
+      allow write: if get(/databases/$(database)/documents/users/$(request.auth.uid)).data.isAdmin;
+			
+      match /private/contact {
+      	// Allow account owner, students, and admin to read contact
+        allow read: if request.auth != null
+        						&& (request.auth.uid == userId
+                       || request.auth.token.student == true
+                    	 || request.auth.token.admin == true
+                       // Allow a registered user to read contact based on privacy setting
+                       || get(/databases/$(database)/documents/users/$(userId)).data.contactInfoVisibility == true);
+				// Allow account owner and admin to write to contact
+        allow write: if request.auth != null
+        						 && (request.auth.uid == userId
+                        || request.auth.token.admin == true);
+      }
+      
+      match /private/favorites {
+      	// Allow account owner and admin to read favorites
+      	allow read: if request.auth != null
+        						&& (request.auth.uid == userId
+                    	 || request.auth.token.admin == true);
+				// Allow account owner and admin to write to favorites
+        allow write: if request.auth != null
+        						 && (request.auth.uid == userId
+                        || request.auth.token.admin == true);
+      }
+      }
+    }
+
+    // Default rule for other documents to deny read/write
+    // You can customize this per collection as needed
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  
+}
